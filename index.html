@@ -131,7 +131,7 @@ textarea{font-family:inherit}
 .sp-menu{display:flex;flex-direction:column;padding:2px 8px;flex-shrink:0}
 .sp-item{
   display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;
-  cursor:pointer;color:rgba(0,10,58,.5);font-size:13px;font-weight:500;
+  cursor:pointer;color:var(--ink);font-size:13px;font-weight:500;
   transition:color .1s,background .1s;white-space:nowrap
 }
 .sp-item:hover{color:var(--ink);background:rgba(0,10,58,.03)}
@@ -1886,7 +1886,6 @@ function pickChat(id){
   selChat=id; renderChats();
   loadChat(id);
   document.querySelectorAll('.sp-item').forEach(el=>el.classList.remove('active'));
-  document.getElementById('spi-newchat')?.classList.add('active');
   setNI('home');
 }
 
