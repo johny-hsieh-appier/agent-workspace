@@ -613,27 +613,42 @@ textarea{font-family:inherit}
 .ptab:hover:not(.active){color:var(--ink)}
 
 /* Metric cards */
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
-.metric-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px}
-.metric-label{font-size:12px;color:var(--low);margin-bottom:8px;font-weight:500}
-.metric-val{font-size:28px;font-weight:700;color:var(--ink);letter-spacing:-.5px}
-.metric-delta{font-size:12px;margin-top:4px;font-weight:500}
-.delta-up{color:#0A7B4A}.delta-dn{color:#C24C00}
+/* ── WidgetCard ── */
+.widget-card{background:#fff;border-radius:12px;border:1px solid #E8E9EF;box-shadow:0 1px 4px rgba(0,10,58,.06);overflow:hidden}
+.wc-header{display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px 12px;border-bottom:1px solid #F0F1F5}
+.wc-title{font-size:14px;font-weight:600;color:var(--ink);line-height:1.4}
+.wc-subtitle{font-size:12px;color:rgba(0,10,58,.45);margin-top:2px;line-height:1.4}
+.wc-action{display:flex;align-items:center;gap:4px}
+.wc-action-btn{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:rgba(0,10,58,.45);cursor:pointer;transition:background .1s,color .1s;border:none;background:none}
+.wc-action-btn:hover{background:rgba(0,10,58,.05);color:var(--ink)}
+.wc-body{padding:20px}
 
-/* Chart placeholder */
-.chart-ph{
-  background:#fff;border:1px solid var(--border);border-radius:16px;
-  height:220px;display:flex;align-items:center;justify-content:center;
-  color:var(--faint);flex-direction:column;gap:12px;margin-bottom:28px
-}
-.chart-ph svg{opacity:.2}
+/* ── Metric grid ── */
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.metric-val{font-size:28px;font-weight:700;color:var(--ink);letter-spacing:-.5px;line-height:1.2;margin-bottom:6px}
+.metric-delta{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;padding:2px 6px;border-radius:4px}
+.delta-up{background:rgba(0,186,119,.12);color:#007A4D}
+.delta-dn{background:rgba(251,64,120,.10);color:#C0003B}
+.metric-comp{margin-top:10px;font-size:12px;color:rgba(0,10,58,.45)}
 
-/* Insight cards */
-.insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.insight-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px}
-.ic-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:8px}
-.ic-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.5}
+/* ── Chart ── */
+.chart-row{margin-bottom:20px}
+.chart-area{width:100%;height:240px}
+.chart-legend{display:flex;align-items:center;gap:20px;padding:0 20px 16px;flex-wrap:wrap}
+.chart-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(0,10,58,.57);font-weight:500}
+.chart-legend-dot{border-radius:50%;display:inline-block;width:8px;height:8px;flex-shrink:0}
+.chart-grid-line{stroke:#E8E9EF;stroke-width:1}
+.chart-axis-label{font-family:'Inter',-apple-system,sans-serif;font-size:11px;fill:rgba(0,10,58,.4)}
+
+/* ── Insight cards ── */
+.insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ic-tag{display:inline-block;font-size:11px;font-weight:600;color:#296AFF;background:rgba(41,106,255,.1);padding:2px 8px;border-radius:4px;letter-spacing:.3px;text-transform:uppercase;margin-bottom:10px}
+.ic-title{font-size:14px;font-weight:600;color:var(--ink);line-height:1.5;margin-bottom:8px}
 .ic-desc{font-size:13px;color:var(--low);line-height:1.6}
+.ic-footer{margin-top:16px;padding-top:12px;border-top:1px solid #F0F1F5;display:flex;align-items:center;justify-content:space-between}
+.ic-cta{font-size:13px;font-weight:500;color:#296AFF;cursor:pointer;display:flex;align-items:center;gap:4px;background:none;border:none;padding:0}
+.ic-cta:hover{opacity:.75}
+.ic-date{font-size:12px;color:rgba(0,10,58,.35)}
 
 /* Industry cards */
 .ind-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
@@ -1246,50 +1261,164 @@ textarea{font-family:inherit}
         <h1>Insights</h1>
         <p>AI-generated insights from your marketing data</p>
       </div>
-      <div class="metrics">
-        <div class="metric-card">
-          <div class="metric-label">Total Revenue (MTD)</div>
-          <div class="metric-val">$2.4M</div>
-          <div class="metric-delta delta-up">↑ 18% vs last month</div>
+
+      <!-- Metric Cards -->
+      <div class="metric-grid">
+        <div class="widget-card">
+          <div class="wc-header">
+            <div>
+              <div class="wc-title">Total Revenue (MTD)</div>
+              <div class="wc-subtitle">vs. last month</div>
+            </div>
+            <div class="wc-action">
+              <button class="wc-action-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="13" r="1.2"/></svg></button>
+            </div>
+          </div>
+          <div class="wc-body">
+            <div class="metric-val">$2.4M</div>
+            <span class="metric-delta delta-up"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 2l4 6H1z"/></svg>18%</span>
+            <div class="metric-comp">$2.03M last month</div>
+          </div>
         </div>
-        <div class="metric-card">
-          <div class="metric-label">Active Campaigns</div>
-          <div class="metric-val">14</div>
-          <div class="metric-delta delta-up">↑ 3 new this week</div>
+        <div class="widget-card">
+          <div class="wc-header">
+            <div>
+              <div class="wc-title">Active Campaigns</div>
+              <div class="wc-subtitle">currently running</div>
+            </div>
+            <div class="wc-action">
+              <button class="wc-action-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="13" r="1.2"/></svg></button>
+            </div>
+          </div>
+          <div class="wc-body">
+            <div class="metric-val">14</div>
+            <span class="metric-delta delta-up"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 2l4 6H1z"/></svg>3 new this week</span>
+            <div class="metric-comp">11 last week</div>
+          </div>
         </div>
-        <div class="metric-card">
-          <div class="metric-label">Avg. Email Open Rate</div>
-          <div class="metric-val">24.3%</div>
-          <div class="metric-delta delta-up">↑ 2.1 pts vs Q2</div>
+        <div class="widget-card">
+          <div class="wc-header">
+            <div>
+              <div class="wc-title">Avg. Email Open Rate</div>
+              <div class="wc-subtitle">vs. Q2 average</div>
+            </div>
+            <div class="wc-action">
+              <button class="wc-action-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="13" r="1.2"/></svg></button>
+            </div>
+          </div>
+          <div class="wc-body">
+            <div class="metric-val">24.3%</div>
+            <span class="metric-delta delta-up"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 2l4 6H1z"/></svg>+2.1 pts</span>
+            <div class="metric-comp">22.2% in Q2</div>
+          </div>
         </div>
-        <div class="metric-card">
-          <div class="metric-label">Churn Risk (30d)</div>
-          <div class="metric-val">8.2%</div>
-          <div class="metric-delta delta-dn">↑ 1.4 pts — attention needed</div>
+        <div class="widget-card">
+          <div class="wc-header">
+            <div>
+              <div class="wc-title">Churn Risk (30d)</div>
+              <div class="wc-subtitle">attention needed</div>
+            </div>
+            <div class="wc-action">
+              <button class="wc-action-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="13" r="1.2"/></svg></button>
+            </div>
+          </div>
+          <div class="wc-body">
+            <div class="metric-val">8.2%</div>
+            <span class="metric-delta delta-dn"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 8L1 2h8z"/></svg>+1.4 pts</span>
+            <div class="metric-comp">6.8% last month</div>
+          </div>
         </div>
       </div>
-      <div class="chart-ph">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-          <polyline points="4,40 12,28 20,32 28,18 36,24 44,12"/>
-          <rect x="4" y="4" width="40" height="36" rx="2"/>
-        </svg>
-        <span style="font-size:13px">Revenue trend chart — 90 days</span>
+
+      <!-- Revenue Trend Chart -->
+      <div class="chart-row">
+        <div class="widget-card">
+          <div class="wc-header">
+            <div>
+              <div class="wc-title">Revenue Trend</div>
+              <div class="wc-subtitle">Last 90 days</div>
+            </div>
+            <div class="wc-action">
+              <button class="wc-action-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v7M5 8l3 3 3-3"/><path d="M3 13h10"/></svg></button>
+              <button class="wc-action-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="13" r="1.2"/></svg></button>
+            </div>
+          </div>
+          <div class="chart-legend">
+            <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#296AFF"></span>Revenue</div>
+            <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#7B2FF7"></span>Campaign spend</div>
+          </div>
+          <svg class="chart-area" viewBox="0 0 860 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad-blue" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#296AFF" stop-opacity=".18"/>
+                <stop offset="100%" stop-color="#296AFF" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="grad-purple" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#7B2FF7" stop-opacity=".12"/>
+                <stop offset="100%" stop-color="#7B2FF7" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <line class="chart-grid-line" x1="60" y1="20"  x2="840" y2="20"/>
+            <line class="chart-grid-line" x1="60" y1="65"  x2="840" y2="65"/>
+            <line class="chart-grid-line" x1="60" y1="110" x2="840" y2="110"/>
+            <line class="chart-grid-line" x1="60" y1="155" x2="840" y2="155"/>
+            <line class="chart-grid-line" x1="60" y1="200" x2="840" y2="200"/>
+            <text class="chart-axis-label" x="50" y="24"  text-anchor="end">3.0M</text>
+            <text class="chart-axis-label" x="50" y="69"  text-anchor="end">2.5M</text>
+            <text class="chart-axis-label" x="50" y="114" text-anchor="end">2.0M</text>
+            <text class="chart-axis-label" x="50" y="159" text-anchor="end">1.5M</text>
+            <text class="chart-axis-label" x="50" y="204" text-anchor="end">1.0M</text>
+            <text class="chart-axis-label" x="100"  y="216" text-anchor="middle">Jul 1</text>
+            <text class="chart-axis-label" x="230"  y="216" text-anchor="middle">Jul 31</text>
+            <text class="chart-axis-label" x="360"  y="216" text-anchor="middle">Aug 15</text>
+            <text class="chart-axis-label" x="490"  y="216" text-anchor="middle">Aug 31</text>
+            <text class="chart-axis-label" x="620"  y="216" text-anchor="middle">Sep 15</text>
+            <text class="chart-axis-label" x="780"  y="216" text-anchor="middle">Sep 30</text>
+            <path d="M60,180 C120,165 150,150 200,140 S280,118 330,105 S420,80 480,72 S570,58 630,48 S720,30 840,25 L840,200 L60,200 Z" fill="url(#grad-blue)"/>
+            <path d="M60,180 C120,165 150,150 200,140 S280,118 330,105 S420,80 480,72 S570,58 630,48 S720,30 840,25" fill="none" stroke="#296AFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M60,165 C110,158 160,148 220,145 S310,138 370,135 S450,128 510,125 S600,120 660,118 S740,115 840,112 L840,200 L60,200 Z" fill="url(#grad-purple)"/>
+            <path d="M60,165 C110,158 160,148 220,145 S310,138 370,135 S450,128 510,125 S600,120 660,118 S740,115 840,112" fill="none" stroke="#7B2FF7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 3"/>
+            <circle cx="200" cy="140" r="4" fill="#296AFF" stroke="#fff" stroke-width="2"/>
+            <circle cx="480" cy="72"  r="4" fill="#296AFF" stroke="#fff" stroke-width="2"/>
+            <circle cx="840" cy="25"  r="4" fill="#296AFF" stroke="#fff" stroke-width="2"/>
+          </svg>
+        </div>
       </div>
+
+      <!-- Insight Cards -->
       <div class="insight-grid">
-        <div class="insight-card">
-          <div class="ic-label">Campaign</div>
-          <div class="ic-title">Push outperforming email for flash sales</div>
-          <div class="ic-desc">Push notifications drove 69% of conversions in the last flash sale, up from 38% six months ago. Consider shifting budget allocation.</div>
+        <div class="widget-card">
+          <div class="wc-body">
+            <span class="ic-tag">Campaign</span>
+            <div class="ic-title">Push outperforming email for flash sales</div>
+            <div class="ic-desc">Push notifications drove 69% of conversions in the last flash sale, up from 38% six months ago. Consider shifting budget allocation.</div>
+            <div class="ic-footer">
+              <button class="ic-cta">Explore <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 6h7M6.5 3l3 3-3 3"/></svg></button>
+              <span class="ic-date">Today</span>
+            </div>
+          </div>
         </div>
-        <div class="insight-card">
-          <div class="ic-label">Audience</div>
-          <div class="ic-title">High-value segment shrinking by 3.2%</div>
-          <div class="ic-desc">Your top-tier customer segment declined this quarter. Primary cause: 45-day purchase gap without engagement. Win-back campaign recommended.</div>
+        <div class="widget-card">
+          <div class="wc-body">
+            <span class="ic-tag">Audience</span>
+            <div class="ic-title">High-value segment shrinking by 3.2%</div>
+            <div class="ic-desc">Your top-tier customer segment declined this quarter. Primary cause: 45-day purchase gap without engagement. Win-back campaign recommended.</div>
+            <div class="ic-footer">
+              <button class="ic-cta">Explore <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 6h7M6.5 3l3 3-3 3"/></svg></button>
+              <span class="ic-date">Yesterday</span>
+            </div>
+          </div>
         </div>
-        <div class="insight-card">
-          <div class="ic-label">Retention</div>
-          <div class="ic-title">Tuesday 10am is your golden hour</div>
-          <div class="ic-desc">Customers who receive messages between 10–11am Tuesday show 42% higher open rates and 31% better click-through across all channels.</div>
+        <div class="widget-card">
+          <div class="wc-body">
+            <span class="ic-tag">Retention</span>
+            <div class="ic-title">Tuesday 10am is your golden hour</div>
+            <div class="ic-desc">Messages sent Tuesday between 10–11am achieve 2.3× the engagement of your weekly average. Schedule high-priority sends accordingly.</div>
+            <div class="ic-footer">
+              <button class="ic-cta">Explore <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 6h7M6.5 3l3 3-3 3"/></svg></button>
+              <span class="ic-date">2 days ago</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
